@@ -28,7 +28,4 @@ def prepararDatos(nombreArchivo) :
 if __name__ == "__main__" :
 
     dataFrame = prepararDatos("Advertisement.csv")
-    Xtrain, Xtest, yTrain, ytest = dataFrame
-    print(f"entrenamientoX: {Xtrain},\n testX {Xtest} \n trainingY : {yTrain} \n TesteoY: {ytest}")
-
     pass
