@@ -1,6 +1,8 @@
 import src.data_loader as dataLoader
 import src.preprocessing as preprocessing
 
+import pandas as pd
+
 def main():
 
     print("entro")
@@ -10,14 +12,25 @@ def main():
 
     print(f"Xtrain:\n {xTrain}")
 
-    caracteristicasTraining = preprocessing.normalizarDataFrame(xTrain)[:]
-    caracteristicasTesting = preprocessing.normalizarDataFrame(xTest)[:]
+    mediaAge = preprocessing.promedioColumna(xTrain["Age"])
+    desviacionEstandarAge = preprocessing.desviacionEstandarColumna(xTrain["Age"], mediaAge)
 
-    objetivoTraining = preprocessing.normalizarDataFrame(yTrain)[:]
-    objetivoTesting = preprocessing.normalizarDataFrame(yTest)[:]
+    mediaEstimatedSalary = preprocessing.promedioColumna(xTrain["EstimatedSalary"])
+    desviacionEstandarEstimatedSalary = preprocessing.desviacionEstandarColumna(xTrain["EstimatedSalary"],mediaEstimatedSalary)
+
+    caracteristicasTraining = pd.DataFrame()
+    caracteristicasTraining["Age"] = preprocessing.normalizarDataFrame(xTrain["Age"], mediaAge, desviacionEstandarAge)
+    caracteristicasTraining["EstimatedSalary"] = preprocessing.normalizarDataFrame(xTrain["EstimatedSalary"], mediaEstimatedSalary, desviacionEstandarEstimatedSalary)
+    
+    caracteristicasTesting = pd.DataFrame()
+    caracteristicasTesting["Age"] = preprocessing.normalizarDataFrame(xTest["Age"], mediaAge, desviacionEstandarAge)
+    caracteristicasTesting["EstimatedSalary"] = preprocessing.normalizarDataFrame(xTest["EstimatedSalary"],mediaEstimatedSalary, desviacionEstandarEstimatedSalary)
+
+    objetivoTraining = yTrain
+    objetivoTesting = yTest
 
     print(f"xtrain: \n{xTrain}, objetivoTraining:\n{objetivoTraining}")
-    
+
     return
 
 

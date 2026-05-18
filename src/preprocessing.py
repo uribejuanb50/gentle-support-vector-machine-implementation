@@ -18,23 +18,11 @@ def desviacionEstandarColumna(columna, media) :
 
     return sumador / len(columna)
 
-def estadisticasColumna(columna) : 
-    media = promedioColumna(columna)
-    return media, desviacionEstandarColumna(columna, media)
+def normalizarDataFrame(columna, media, desviacionEstandar) :
 
-def normalizarDataFrame(dataFrame) :
+    dfCopia = columna.copy()
 
-    dfCopia = dataFrame.copy()
-
-    if(isinstance(dfCopia, pd.Series)):
-        media, desviacionEstandar = estadisticasColumna(dfCopia)
-
-        dfCopia = dfCopia.apply(lambda x : (x - media) / desviacionEstandar)
-
-    else:
-        for columna in dfCopia.columns :
-            media, desviacionEstandar = estadisticasColumna(dfCopia[columna])
-            dfCopia[columna] = dfCopia[columna].apply(lambda x : (x - media)/desviacionEstandar)
+    dfCopia = dfCopia.apply(lambda x : (x - media) / desviacionEstandar)
 
     return dfCopia
 
