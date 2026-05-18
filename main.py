@@ -1,5 +1,7 @@
 import src.data_loader as dataLoader
 import src.preprocessing as preprocessing
+import src.model as model
+import src.evaluation as evaluation
 
 import pandas as pd
 
@@ -29,7 +31,23 @@ def main():
     objetivoTraining = yTrain
     objetivoTesting = yTest
 
-    print(f"xtrain: \n{xTrain}, objetivoTraining:\n{objetivoTraining}")
+    modeloLinear = model.entrenarModelo("linear", caracteristicasTraining, objetivoTraining)
+    prediccionLinear = modeloLinear.predict(caracteristicasTesting)
+
+    modeloPoly = model.entrenarModelo("poly", caracteristicasTraining, objetivoTraining)
+    prediccionPoly = modeloPoly.predict(caracteristicasTesting)
+
+    modeloRBF = model.entrenarModelo("rbf", caracteristicasTraining, objetivoTraining)
+    prediccionRBF = modeloRBF.predict(caracteristicasTesting)
+
+    resultados = {}
+    resultados["linear"] = evaluation.evaluarModelo(modeloLinear, objetivoTesting, prediccionLinear)
+    resultados["poly"] = evaluation.evaluarModelo(modeloPoly, objetivoTesting, prediccionPoly)
+    resultados["rbf"] = evaluation.evaluarModelo(modeloRBF, objetivoTesting, prediccionRBF)
+
+
+
+    print(f"predccion:\n{resultados}  ")
 
     return
 
