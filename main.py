@@ -2,6 +2,7 @@ import src.data_loader as dataLoader
 import src.preprocessing as preprocessing
 import src.model as model
 import src.evaluation as evaluation
+import src.visualization as visualization
 
 import pandas as pd
 
@@ -50,6 +51,8 @@ def main():
     print(f"predccion:\n{resultados}  ")
 
     evaluation.compararModelos(resultados)
+    visualization.graficarBarras(resultados)
+    visualization.graficarMatrices(resultados)
 
     return
 
