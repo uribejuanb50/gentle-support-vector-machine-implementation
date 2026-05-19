@@ -11,7 +11,23 @@ def evaluarModelo(modelo, yTest, yPred):
     matrizConfusion = confusion_matrix(yTest, yPred)
     exactitud = accuracy_score(yTest,yPred)
 
-    return exactitud, matrizConfusion
+    return { "exactitud" : exactitud, "matriz" : matrizConfusion}
 
 def compararModelos(resultados):
+
+    mejorExactitud = 0
+    mejorKernel = ""
+
+    for kernel, info in resultados.items() :
+        exactitud = info["exactitud"]
+        mc = info["matriz"]
+
+        if mejorExactitud < exactitud :
+            mejorExactitud = exactitud
+            mejorKernel = kernel
+
+        print(f"El modelo {kernel} tiene una exactitud del {exactitud * 100}%")
+
+    print(f"El mejor kernel fue el {mejorKernel}, con una exactitud del {mejorExactitud * 100}%")
+
     return

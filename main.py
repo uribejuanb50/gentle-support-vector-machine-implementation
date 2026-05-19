@@ -49,6 +49,8 @@ def main():
 
     print(f"predccion:\n{resultados}  ")
 
+    evaluation.compararModelos(resultados)
+
     return
 
 
